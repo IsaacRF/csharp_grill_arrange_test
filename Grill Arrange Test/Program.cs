@@ -10,6 +10,8 @@ namespace Grill_Arrange_Test
     {
         static void Main(string[] args)
         {
+            Grill grill = new Grill(20, 30);
+            Console.ReadKey();
         }
     }
 }
