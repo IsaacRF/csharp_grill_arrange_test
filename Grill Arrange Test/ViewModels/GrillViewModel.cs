@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Grill_Arrange_Test.Client;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,11 +7,22 @@ using System.Threading.Tasks;
 
 namespace Grill_Arrange_Test
 {
-    class Grill
+    /// <summary>
+    /// Represents the Grill and its view logic
+    /// </summary>
+    class GrillViewModel
     {
-        public int[][] grillSpace;
+        /// <summary>
+        /// Stores grill space state
+        /// </summary>
+        public int[][] grillSpace { get; set; }
 
-        public Grill(int grillLength, int grillWidth)
+        /// <summary>
+        /// Base constructor
+        /// </summary>
+        /// <param name="grillLength">Grill length in cm</param>
+        /// <param name="grillWidth">Grill width in cm</param>
+        public GrillViewModel(int grillLength, int grillWidth)
         {           
             InitializeGrill(grillLength, grillWidth);
         }
@@ -27,6 +39,20 @@ namespace Grill_Arrange_Test
             for (int i = 0; i < grillSpace.Length; i++)
             {
                 grillSpace[i] = new int[grillWidth];
+            }
+        }
+
+        /// <summary>
+        /// Retrieves and cook menus
+        /// </summary>
+        public void CookMenus()
+        {
+            GrillMenuClient client = new GrillMenuClient(new AnonymousCredentials());
+            var results = client.GetAll();
+
+            foreach (var menu in results.OrderBy(r => r.Menu))
+            {
+                // Cook the menu
             }
         }
 

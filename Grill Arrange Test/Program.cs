@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Grill_Arrange_Test.Client;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,8 @@ namespace Grill_Arrange_Test
     {
         static void Main(string[] args)
         {
-            Grill grill = new Grill(20, 30);
+            GrillViewModel grill = new GrillViewModel(20, 30);
+            grill.CookMenus();
             Console.ReadKey();
         }
     }
