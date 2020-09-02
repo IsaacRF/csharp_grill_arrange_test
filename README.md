@@ -1,4 +1,4 @@
-# DRONE SIMULATION APP
+# GRILL ARRANGE APP
 - **Author:** Isaac R.F. (isaacrf239@gmail.com)
 - **Test owner company:** isolutions
 - **Language:** C#, .Net
