@@ -1,4 +1,4 @@
-# GRILL ARRANGE APP
+# GRILL ARRANGE TEST APP
 - **Author:** Isaac R.F. (isaacrf239@gmail.com)
 - **Test owner company:** isolutions
 - **Language:** C#, .Net
