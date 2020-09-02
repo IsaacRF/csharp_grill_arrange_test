@@ -6,12 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Grill_Arrange_Test
+namespace Grill_Arrange_Test.ViewModels
 {
     /// <summary>
     /// Represents the Grill and its view logic
     /// </summary>
-    class GrillViewModel
+    public class GrillViewModel
     {
         public int GrillLength { get; set; }
         public int GrillWidth { get; set; }
@@ -40,11 +40,21 @@ namespace Grill_Arrange_Test
         }
 
         /// <summary>
-        /// Cook all menus
+        /// Retrieves and cooks all menus
         /// </summary>
         public void Cook()
         {
             var menus = GetMenus();
+            CookMenus(menus);
+        }
+
+        /// <summary>
+        /// Cooks specified menus
+        /// </summary>
+        /// <param name="menus"></param>
+        /// <returns></returns>
+        public int CookMenus(IList<GrillMenuModel> menus)
+        {
             int totalRounds = 0;
 
             //Menus Check
@@ -67,6 +77,7 @@ namespace Grill_Arrange_Test
             }
 
             PrintCookResult(totalRounds);
+            return totalRounds;
         }
 
         /// <summary>

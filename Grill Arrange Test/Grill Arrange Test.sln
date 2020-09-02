@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.1231
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grill Arrange Test", "Grill Arrange Test.csproj", "{4EF0A0F3-F64A-4BD2-97EA-9475FC58649F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{06A5B776-9BDD-4F62-AEC7-1A4D9112C614}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{4EF0A0F3-F64A-4BD2-97EA-9475FC58649F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4EF0A0F3-F64A-4BD2-97EA-9475FC58649F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4EF0A0F3-F64A-4BD2-97EA-9475FC58649F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06A5B776-9BDD-4F62-AEC7-1A4D9112C614}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06A5B776-9BDD-4F62-AEC7-1A4D9112C614}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06A5B776-9BDD-4F62-AEC7-1A4D9112C614}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06A5B776-9BDD-4F62-AEC7-1A4D9112C614}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
