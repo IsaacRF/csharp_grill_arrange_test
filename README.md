@@ -17,3 +17,6 @@ Grill arrange console app that retrieves different menus from a REST API and cal
 1. Execute app exe and enter a valid grid length and width
 2. App automatically retrieves menus, sorts them, and shows info of every round required for every menu
 3. Press Enter again to close app
+
+## Known Bugs
+- [ ] Infinite loop when specified grill size is too small
