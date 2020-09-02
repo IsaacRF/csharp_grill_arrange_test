@@ -11,6 +11,9 @@ namespace Grill_Arrange_Test.Models
     using Microsoft.Rest;
     using Microsoft.Rest.Serialization;
 
+    /// <summary>
+    /// Represents a menu item
+    /// </summary>
     public partial class GrillMenuItemModel
     {
         /// <summary>
@@ -32,31 +35,37 @@ namespace Grill_Arrange_Test.Models
         }
 
         /// <summary>
+        /// Item ID
         /// </summary>
         [JsonProperty(PropertyName = "Id")]
         public Guid? Id { get; set; }
 
         /// <summary>
+        /// Item Name
         /// </summary>
         [JsonProperty(PropertyName = "Name")]
         public string Name { get; set; }
 
         /// <summary>
+        /// Item Length in cm
         /// </summary>
         [JsonProperty(PropertyName = "Length")]
         public int? Length { get; set; }
 
         /// <summary>
+        /// Item Width in cm
         /// </summary>
         [JsonProperty(PropertyName = "Width")]
         public int? Width { get; set; }
 
         /// <summary>
+        /// Item cooking duration
         /// </summary>
         [JsonProperty(PropertyName = "Duration")]
         public string Duration { get; set; }
 
         /// <summary>
+        /// Item quantity present in menu
         /// </summary>
         [JsonProperty(PropertyName = "Quantity")]
         public int? Quantity { get; set; }

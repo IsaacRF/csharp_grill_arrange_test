@@ -14,6 +14,7 @@ namespace Grill_Arrange_Test
     using Models;
 
     /// <summary>
+    /// Client for API connection
     /// </summary>
     public partial interface IGrillMenuClient : IDisposable
     {
