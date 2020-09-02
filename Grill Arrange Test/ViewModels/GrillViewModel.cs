@@ -1,4 +1,5 @@
 ﻿using Grill_Arrange_Test.Client;
+using Grill_Arrange_Test.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,65 +28,122 @@ namespace Grill_Arrange_Test
         }
 
         /// <summary>
-        /// Retrieves and cook menus
+        /// Retrieves menus from API
         /// </summary>
-        public void CookMenus()
+        /// <returns></returns>
+        public IList<GrillMenuModel> GetMenus()
         {
+            //Note: This should be replaced by a call to a Repository / Data handle layer that also 
+            //handles cache. Omitted for simplicity.
             GrillMenuClient client = new GrillMenuClient(new AnonymousCredentials());
-            var results = client.GetAll();
+            return client.GetAll();
+        }
 
-            foreach (var menu in results.OrderBy(r => r.Menu))
+        /// <summary>
+        /// Cook all menus
+        /// </summary>
+        public void Cook()
+        {
+            var menus = GetMenus();
+            int totalRounds = 0;
+
+            //Menus Check
+            foreach (var menu in menus.OrderBy(r => r.Menu))
             {
                 int itemsReady = 0;
                 int rounds = 0;
-                string roundSummary;
 
                 Console.WriteLine("[{0}]", menu.Menu);
 
-                // Round
+                // Round Check
                 while (itemsReady < menu.Items.Count)
                 {
                     rounds++;
-                    int grillAvailableArea = GrillLength * GrillWidth;
-                    roundSummary = string.Format("--> Round {0}: | ", rounds);
+                    string roundSummary = CookRound(menu, ref itemsReady);
+                    PrintRoundSummary(rounds, roundSummary);
+                }
+                totalRounds += rounds;
+                PrintMenuTotalRounds(rounds);
+            }
 
-                    // Items Check
-                    foreach (var item in menu.Items.OrderBy(i => i.Length * i.Width))
+            PrintCookResult(totalRounds);
+        }
+
+        /// <summary>
+        /// Cook one round of the specified menu
+        /// </summary>
+        /// <param name="menu">Menu to cook a round from</param>
+        /// <param name="itemsReady">Counter of items with entire quantity already cooked</param>
+        /// <returns>string summarizing the round cooking results</returns>
+        private string CookRound(GrillMenuModel menu, ref int itemsReady)
+        {            
+            int grillAvailableArea = GrillLength * GrillWidth;
+            string roundSummary = "";
+
+            // Items Check
+            foreach (var item in menu.Items.OrderBy(i => i.Length * i.Width))
+            {
+                if (item.Quantity != 0)
+                {
+                    int itemArea = Convert.ToInt16(Math.Truncate((double)(item.Length.Value * item.Width.Value)));
+                    if (itemArea <= grillAvailableArea)
                     {
-                        if (item.Quantity != 0)
+                        int itemsFitting = grillAvailableArea / itemArea;
+                        itemsFitting = (itemsFitting > item.Quantity) ? item.Quantity.Value : itemsFitting;
+
+                        //Update info
+                        grillAvailableArea -= itemArea * itemsFitting;
+                        item.Quantity -= itemsFitting;
+                        if (itemsFitting != 0)
                         {
-                            int itemArea = Convert.ToInt16(Math.Truncate((Double)(item.Length.Value * item.Width.Value)));
-
-                            if (itemArea <= grillAvailableArea)
-                            {
-                                int itemsFitting = grillAvailableArea / itemArea;
-                                itemsFitting = (itemsFitting > item.Quantity) ? item.Quantity.Value : itemsFitting;
-
-                                grillAvailableArea -= itemArea * itemsFitting;
-                                item.Quantity -= itemsFitting;
-                                if (itemsFitting != 0)
-                                {
-                                    roundSummary += string.Format("'{0}' x {1} |", item.Name, itemsFitting);
-                                }
-
-                                if (item.Quantity == 0)
-                                {
-                                    itemsReady++;
-                                }
-                            }
+                            roundSummary += string.Format("'{0}' x {1} | ", item.Name, itemsFitting);
+                        }
+                        if (item.Quantity == 0)
+                        {
+                            itemsReady++;
                         }
                     }
-
-                    Console.WriteLine("|");
-                    Console.WriteLine(roundSummary);
-                    
                 }
-
-                Console.WriteLine("------------------------------------------------------------");
-                Console.WriteLine("(Total: {0} Rounds)", rounds);
-                Console.WriteLine("------------------------------------------------------------");
-                Console.WriteLine();
             }
+
+            return roundSummary;
+        }
+
+        /// <summary>
+        /// Prints round cooked items and quantities
+        /// </summary>
+        /// <param name="round">Round number</param>
+        /// <param name="roundSummary">Round results summary</param>
+        private void PrintRoundSummary(int round, string roundSummary)
+        {
+            Console.WriteLine("|");
+            Console.WriteLine("--> Round {0}: | {1}", round, roundSummary);
+        }
+
+        /// <summary>
+        /// Prints menu closing total rounds
+        /// </summary>
+        /// <param name="rounds">Menu total rounds</param>
+        private void PrintMenuTotalRounds(int rounds)
+        {
+            Console.WriteLine("------------------------------------------------------------");
+            Console.WriteLine("(Total: {0} Rounds)", rounds);
+            Console.WriteLine("------------------------------------------------------------");
+            Console.WriteLine();
+        }
+
+        /// <summary>
+        /// Prints global total rounds to cook all menus
+        /// </summary>
+        /// <param name="totalRounds">Global total rounds</param>
+        private void PrintCookResult(int totalRounds)
+        {
+            Console.WriteLine();
+            Console.WriteLine("------------------------------------------------------------");
+            Console.WriteLine("All menus cooked!");
+            Console.WriteLine("(Global total: {0} Rounds)", totalRounds);
+            Console.WriteLine("------------------------------------------------------------");
+            Console.WriteLine();
         }
     }
 }

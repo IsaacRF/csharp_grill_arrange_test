@@ -39,7 +39,7 @@ namespace Grill_Arrange_Test
             Console.WriteLine();
 
             GrillViewModel grill = new GrillViewModel(grillLength, grillWidth);
-            grill.CookMenus();
+            grill.Cook();
             Console.ReadKey();
         }
     }
